@@ -5,4 +5,4 @@
  * This project uses @Incubating APIs which are subject to change.
  */
 
-rootProject.name = "kotlin_experiment9-build-logic"
+rootProject.name = "knighttourkotlin-build-logic"

@@ -5,7 +5,7 @@
  */
 
 plugins {
-    id("kotlin_experiment9.kotlin-library-conventions")
+    id("knighttourkotlin.kotlin-library-conventions")
 }
 
 dependencies {

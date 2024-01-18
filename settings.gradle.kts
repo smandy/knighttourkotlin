@@ -18,5 +18,5 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.4.0"
 }
 
-rootProject.name = "kotlin_experiment9"
+rootProject.name = "knighttourkotlin"
 include("app", "list", "utilities")

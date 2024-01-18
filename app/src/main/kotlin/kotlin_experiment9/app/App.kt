@@ -1,6 +1,6 @@
-package kotlin_experiment9.app
+package knighttourkotlin.app
 
-import kotlin_experiment9.utilities.StringUtils
+import knighttourkotlin.utilities.StringUtils
 import org.apache.commons.text.WordUtils
 
 fun twice(): String {

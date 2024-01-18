@@ -5,7 +5,7 @@
  */
 
 plugins {
-    id("kotlin_experiment9.kotlin-application-conventions")
+    id("knighttourkotlin.kotlin-application-conventions")
 }
 
 dependencies {
@@ -15,5 +15,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("kotlin_experiment9.app.AppKt")
+    mainClass.set("knighttourkotlin.app.AppKt")
 }

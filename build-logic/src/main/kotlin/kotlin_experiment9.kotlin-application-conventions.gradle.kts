@@ -6,7 +6,7 @@
 
 plugins {
     // Apply the common convention plugin for shared build configuration between library and application projects.
-    id("kotlin_experiment9.kotlin-common-conventions")
+    id("knighttourkotlin.kotlin-common-conventions")
 
     // Apply the application plugin to add support for building a CLI application in Java.
     application
