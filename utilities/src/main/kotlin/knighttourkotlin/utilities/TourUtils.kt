@@ -99,6 +99,8 @@ fun main() {
     var stack = mutableListOf<MutableList<PInt>>()
 
     while (running) {
+
+
         println("$g p = $p")
         val movesToMake = moves.filterTo(mutableListOf()) {
             g.canMove(p + it)
