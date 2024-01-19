@@ -22,14 +22,14 @@ fun main() {
                 val millis = newTime - lastTime
                 val numSolutions = sols - lastSolutions
                 println("sols=$numSolutions millis=$millis rate=${numSolutions * 1000 / millis}/sec")
-                println("doImmadate=${f.doImmediateThreads} paintThreads=${f.paintThreads}")
+                    //println("doImmadate=${f.doImmediateThreads} paintThreads=${f.paintThreads}")
                 lastTime = newTime
                 lastSolutions = sols
             }
         }
     },0, 1, TimeUnit.SECONDS)
 
-    Tour().run(Grid2(), eager = true) {
+    Tour().run(Grid3(), eager = false) {
         //Thread.sleep(20)
         f.applyGrid(it)
         solutions.incrementAndGet()
