@@ -4,8 +4,10 @@ import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Graphics
 import java.awt.Graphics2D
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.swing.JFrame
 import javax.swing.JPanel
+import kotlin.jvm.internal.Ref.BooleanRef
 import kotlin.math.absoluteValue
 
 val BOARDSIZE = 8
@@ -37,20 +39,27 @@ class Grid private constructor(
         )
     }
 
+    val drawAscii = AtomicBoolean(false)
+
     override fun toString() : String {
         val grid = run {
-            val sb = StringBuilder()
-            for ( x in 0 until BOARDSIZE) {
-                for (y in 0 until BOARDSIZE) {
-                    if ( PInt(x,y) in visited) {
-                        sb.append('X')
-                    } else {
-                        sb.append(' ')
+            if (drawAscii.get()) {
+                val sb = StringBuilder()
+
+                for (x in 0 until BOARDSIZE) {
+                    for (y in 0 until BOARDSIZE) {
+                        if (PInt(x, y) in visited) {
+                            sb.append('X')
+                        } else {
+                            sb.append(' ')
+                        }
                     }
+                    sb.append('\n')
                 }
-                sb.append('\n')
+                sb.toString()
+            } else {
+                ""
             }
-            sb.toString()
         }
        return  "Grid($movesMade)\n$grid"
     }

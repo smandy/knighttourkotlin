@@ -58,14 +58,14 @@ class TourFrame {
                         .runningFold(PInt(0, 0)) { a, b -> a + b }
                         .toList()
                         .map {
-                            println("Value is $it")
+                            //println("Value is $it")
                             PInt(
                                 squareSize / 2 + it.first * squareSize,
                                 squareSize / 2 + it.second * squareSize
                             )
                         }
-                    println("Moves made ${gridInstance.movesMade}")
-                    println("Coords made $coords")
+                    //println("Moves made ${gridInstance.movesMade}")
+                    //println("Coords made $coords")
 
                     graphics.paint = Color.RED
                     graphics.stroke = BasicStroke(10.0f)
