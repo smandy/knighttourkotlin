@@ -6,7 +6,7 @@ import knighttourkotlin.utilities.plus
 /* Try to optimize - calculate currentPoint and visited */
 data class Grid2 private constructor (
     override var movesMade: List<PInt>,
-    override val visited : Collection<PInt>
+    override val visited : Set<PInt>
 ) : Grid {
     companion object {
         operator fun invoke() = Grid2(
@@ -28,7 +28,7 @@ data class Grid2 private constructor (
         require( !visited.contains(newP)) { "Logic error $newP already on board" }
         return Grid2(
             movesMade + move,
-            visited + newP
+            visited.plus(newP)
         )
     }
 
