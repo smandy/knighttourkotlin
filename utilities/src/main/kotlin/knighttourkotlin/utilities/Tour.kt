@@ -13,6 +13,7 @@ class Tour {
             g.canMove(g.currentPoint + it)
         }
 */
+        var maxMoves = 0
 
 
         stack += g.availableMoves()
@@ -39,9 +40,15 @@ class Tour {
                 running = cb(g)
             }
 
-            if (g.movesMade.size==0 || g.movesMade.size==64) {
-                print("Boom $g")
-                running = false
+            if (g.movesMade.size==0 || g.movesMade.size==63) {
+                //print("Boom $g")
+                //running = false
+                cb(g)
+            }
+
+            if ( g.movesMade.size > maxMoves) {
+                maxMoves = g.movesMade.size
+                //println("New max $maxMoves")
             }
         }
     }
