@@ -13,7 +13,11 @@ import javax.swing.JPanel
 class TourFrame {
     val grid = AtomicReference<Grid>(null)
 
+    var doImmediateThreads = mutableSetOf<Thread>()
+    var paintThreads = mutableSetOf<Thread>()
+
     fun doImmediateRepaint() {
+        doImmediateThreads += Thread.currentThread()
         panel?.paintImmediately(0, 0, frame.width, frame.height)
     }
 
@@ -24,6 +28,7 @@ class TourFrame {
 
     private val panel = object : JPanel() {
         override fun paintComponent(graphics: Graphics?) {
+            paintThreads += Thread.currentThread()
             super.paintComponent(graphics)
             if (graphics is Graphics2D) {
                 val squareSize = 40
@@ -55,7 +60,7 @@ class TourFrame {
                     graphics.paint = Color.RED
 
                     val coords = gridInstance
-                        .visited
+                        .coords()
                         .map {
                             //println("Value is $it")
                             PInt(
@@ -66,15 +71,14 @@ class TourFrame {
                     //println("Moves made ${gridInstance.movesMade}")
                     //println("Coords made $coords")
 
-                    graphics.paint = Color.RED
-                    graphics.stroke = BasicStroke(10.0f)
                     if (true) {
+                        graphics.paint = Color.RED
+                        graphics.stroke = BasicStroke(10.0f)
                         coords.zip(coords.drop(1)).map { (a, b) ->
                             graphics.drawLine(a.first, a.second, b.first, b.second)
                         }
                     }
                 }
-
             }
         }
     }

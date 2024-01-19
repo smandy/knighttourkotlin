@@ -10,7 +10,8 @@ interface Grid {
     val movesMade : List<PInt>
     val currentPoint : PInt
     val visited : Collection<PInt>
-    fun coords : Collection<PInt> {
+
+    fun coords() : Collection<PInt> {
         return movesMade.runningFold( PInt() ) { a,b -> a + b }
     }
 
