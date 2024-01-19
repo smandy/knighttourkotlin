@@ -1,5 +1,7 @@
 package knighttourkotlin.utilities
 
+import knighttourkotlin.utilities.grids.Grid
+import knighttourkotlin.utilities.grids.Grid1
 import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Graphics

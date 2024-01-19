@@ -1,5 +1,7 @@
 package knighttourkotlin.utilities
 
+import knighttourkotlin.utilities.grids.Grid
+
 class Tour {
     //var g = Grid1()
 

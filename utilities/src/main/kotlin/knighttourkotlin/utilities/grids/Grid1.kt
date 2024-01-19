@@ -1,4 +1,7 @@
-package knighttourkotlin.utilities
+package knighttourkotlin.utilities.grids
+
+import knighttourkotlin.utilities.PInt
+import knighttourkotlin.utilities.plus
 
 data class Grid1 private constructor (
     override var movesMade: List<PInt>

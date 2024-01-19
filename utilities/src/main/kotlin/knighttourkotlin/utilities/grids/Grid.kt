@@ -1,4 +1,9 @@
-package knighttourkotlin.utilities
+package knighttourkotlin.utilities.grids
+
+import knighttourkotlin.utilities.BOARDSIZE
+import knighttourkotlin.utilities.PInt
+import knighttourkotlin.utilities.moves
+import knighttourkotlin.utilities.plus
 
 /* Grab most of the griddy stuff in the interface */
 interface Grid {

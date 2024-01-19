@@ -1,4 +1,7 @@
-package knighttourkotlin.utilities
+package knighttourkotlin.utilities.grids
+
+import knighttourkotlin.utilities.PInt
+import knighttourkotlin.utilities.plus
 
 /* Try to optimize - calculate currentPoint and visited */
 data class Grid2 private constructor (
