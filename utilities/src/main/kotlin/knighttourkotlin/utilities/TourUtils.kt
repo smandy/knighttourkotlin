@@ -26,19 +26,34 @@ val moves = run {
 
 class Grid private constructor(
     var movesMade: List<PInt>,
-    val xs: BooleanArray,
-    val ys: BooleanArray, val p: PInt
+    val xs: Set<PInt>,
+    val p: PInt
 ) {
     companion object {
         operator fun invoke() = Grid(
             emptyList(),
-            BooleanArray(BOARDSIZE) { false },
-            BooleanArray(BOARDSIZE) { false },
+            emptySet(),
             PInt(0, 0)
         )
     }
 
-    override fun toString() = "Grid($movesMade)"
+    override fun toString() : String {
+        val grid = run {
+            val sb = StringBuilder()
+            for ( x in 0 until BOARDSIZE) {
+                for (y in 0 until BOARDSIZE) {
+                    if ( PInt(x,y) in xs) {
+                        sb.append('X')
+                    } else {
+                        sb.append(' ')
+                    }
+                }
+                sb.append('\n')
+            }
+            sb.toString()
+        }
+       return  "Grid($movesMade)\n$grid"
+    }
 
     fun isOnBoard(p: PInt) =
         p.first in 0 until BOARDSIZE &&
@@ -46,7 +61,7 @@ class Grid private constructor(
 
     operator fun contains(pInt: Pair<Int, Int>): Boolean {
         require(isOnBoard(pInt)) { "Logic error $pInt not on board" }
-        return xs[pInt.first] && ys[pInt.second]
+        return pInt in xs
     }
 
     operator fun plus(move: Pair<Int, Int>): Grid {
@@ -54,8 +69,7 @@ class Grid private constructor(
         val newP = p + move
         return Grid(
             movesMade + move,
-            xs.clone().apply { this[newP.first] = true },
-            ys.clone().apply { this[newP.second] = true },
+            xs + newP,
             newP
         )
     }
@@ -74,8 +88,7 @@ class Grid private constructor(
         //val newP = p - t
         return Grid(
             movesMade.subList(0, movesMade.lastIndex),
-            xs.clone().apply { this[movesMade.last().first] = false },
-            ys.clone().apply { this[movesMade.last().second] = false },
+            xs - toPop,
             p - toPop
         )
     }
