@@ -1,11 +1,11 @@
 package knighttourkotlin.utilities
 
 class Tour {
-    var g = Grid()
+    var g = Grid1()
 
     var stack = mutableListOf<MutableList<PInt>>()
     var running = true
-    fun run(eager : Boolean, cb : (Grid) -> Boolean = { true }) {
+    fun run(eager : Boolean, cb : (Grid1) -> Boolean = { true }) {
 
         var maxMoves = 0
 
