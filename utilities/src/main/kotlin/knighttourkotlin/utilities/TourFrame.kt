@@ -54,9 +54,8 @@ class TourFrame {
                 if (gridInstance != null) {
                     graphics.paint = Color.RED
 
-                    val coords = gridInstance.movesMade
-                        .runningFold(PInt(0, 0)) { a, b -> a + b }
-                        .toList()
+                    val coords = gridInstance
+                        .visited
                         .map {
                             //println("Value is $it")
                             PInt(
@@ -79,6 +78,7 @@ class TourFrame {
             }
         }
     }
+
 
     val frame : JFrame = JFrame("Tour").apply {
         setSize(320,320)

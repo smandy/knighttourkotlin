@@ -1,13 +1,6 @@
 package knighttourkotlin.utilities
 
-import java.awt.BasicStroke
-import java.awt.Color
-import java.awt.Graphics
-import java.awt.Graphics2D
 import java.util.concurrent.atomic.AtomicBoolean
-import javax.swing.JFrame
-import javax.swing.JPanel
-import kotlin.jvm.internal.Ref.BooleanRef
 import kotlin.math.absoluteValue
 
 val BOARDSIZE = 8
@@ -26,22 +19,32 @@ val moves = run {
     }.flatten()
 }
 
-class Grid private constructor(
-    var movesMade: List<PInt>,
-    val visited: Set<PInt>,
-    val p: PInt
+data class Grid private constructor(
+    var movesMade: List<PInt>
+    //val visited: Set<PInt>,
+    //val currentPoint: PInt
 ) {
+
     companion object {
+        val pzero = PInt(0,0)
+
         operator fun invoke() = Grid(
             emptyList(),
-            emptySet(),
-            PInt(0, 0)
+            //setOf(pzero),
+            //pzero
         )
     }
 
-    val drawAscii = AtomicBoolean(false)
+    val currentPoint : PInt
+        get() = visited.last()
 
-    override fun toString() : String {
+    val visited : List<PInt>
+        get() = movesMade.runningFold(PInt(0, 0)) { a, b -> a + b }
+
+
+val drawAscii = AtomicBoolean(false)
+
+    fun _toString() : String {
         val grid = run {
             if (drawAscii.get()) {
                 val sb = StringBuilder()
@@ -75,31 +78,51 @@ class Grid private constructor(
 
     operator fun plus(move: Pair<Int, Int>): Grid {
         //require( !contains(pInt)) { "Logic error $pInt already on board" }
-        val newP = p + move
+        //val newP = currentPoint + move
         return Grid(
-            movesMade + move,
-            visited + newP,
-            newP
+            movesMade + move
         )
     }
 
     fun canMove(p: PInt): Boolean {
         return isOnBoard(p) && !contains(p)
     }
+    fun availableMoves(applyWandsDorf : Boolean = true): MutableList<Pair<Int, Int>> {
+        val ret = moves.filterTo(mutableListOf()) {
+            canMove(currentPoint + it)
+        }
+        return if (!applyWandsDorf || ret.isEmpty()) {
+            ret
+        } else {
+             ret.map { this + it }
+                 .sortedBy { a -> - a.availableMoves(false).size }
+                 .mapTo(mutableListOf()) { it.movesMade.last()}
+        }
+    }
 
     fun pop(): Grid {
         //assert( !contains(pInt)) { "Logic error $pInt already on board" }
+
+        //println("Popping")
         require(movesMade.isNotEmpty()) { "Logic error pop from empty list" }
 
-        val toPop = movesMade.last().also {
-            require(isOnBoard(p + it)) { "Logic error invalid pop to ${p + it}" }
-        }
+/*        val toPop = movesMade.last().also {
+            require(isOnBoard(currentPoint - it)) {
+                """
+                |Logic error invalid pop to ${currentPoint - it}
+                |MovesMade $movesMade
+                |runningCoorde=${visited}""".trimIndent() }
+        }*/
         //val newP = p - t
+        //val newPoint = currentPoint - toPop
+        //require(newPoint in visited) { "Logic error - popping nonvisited point" }
         return Grid(
             movesMade.subList(0, movesMade.lastIndex),
-            visited - toPop,
-            p - toPop
-        )
+            //visited - newPoint,
+            //newPoint
+        )/*.also {
+            print(it)
+        } */
     }
 
 }

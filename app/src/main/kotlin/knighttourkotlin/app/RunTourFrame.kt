@@ -5,9 +5,9 @@ import knighttourkotlin.utilities.*
 fun main() {
     val f = TourFrame()
 
-    Tour().run {
-        f.applyGrid(it);
-        Thread.sleep(1000);
+    Tour().run(true) {
+      //  Thread.sleep(20)
+        f.applyGrid(it)
         true
     }
 }
