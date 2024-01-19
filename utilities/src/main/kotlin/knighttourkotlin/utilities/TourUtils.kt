@@ -42,31 +42,6 @@ data class Grid private constructor(
         get() = movesMade.runningFold(PInt(0, 0)) { a, b -> a + b }
 
 
-val drawAscii = AtomicBoolean(false)
-
-    fun _toString() : String {
-        val grid = run {
-            if (drawAscii.get()) {
-                val sb = StringBuilder()
-
-                for (x in 0 until BOARDSIZE) {
-                    for (y in 0 until BOARDSIZE) {
-                        if (PInt(x, y) in visited) {
-                            sb.append('X')
-                        } else {
-                            sb.append(' ')
-                        }
-                    }
-                    sb.append('\n')
-                }
-                sb.toString()
-            } else {
-                ""
-            }
-        }
-       return  "Grid($movesMade)\n$grid"
-    }
-
     fun isOnBoard(p: PInt) =
         p.first in 0 until BOARDSIZE &&
                 p.second in 0 until BOARDSIZE
@@ -75,7 +50,6 @@ val drawAscii = AtomicBoolean(false)
         require(isOnBoard(pInt)) { "Logic error $pInt not on board" }
         return pInt in visited
     }
-
     operator fun plus(move: Pair<Int, Int>): Grid {
         //require( !contains(pInt)) { "Logic error $pInt already on board" }
         //val newP = currentPoint + move
@@ -94,7 +68,8 @@ val drawAscii = AtomicBoolean(false)
         return if (!applyWandsDorf || ret.isEmpty()) {
             ret
         } else {
-             ret.map { this + it }
+            // This is supercool
+             ret.map{ this + it }
                  .sortedBy { a -> - a.availableMoves(false).size }
                  .mapTo(mutableListOf()) { it.movesMade.last()}
         }
