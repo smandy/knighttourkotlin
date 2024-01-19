@@ -5,7 +5,8 @@ class Tour {
 
     var stack = mutableListOf<MutableList<PInt>>()
     var running = true
-    fun run(grid : Grid, eager : Boolean, cb : (Grid) -> Boolean = { true }) {
+    fun run(_grid : Grid, eager : Boolean, cb : (Grid) -> Boolean = { true }) {
+        var grid = _grid
 
         var maxMoves = 0
 

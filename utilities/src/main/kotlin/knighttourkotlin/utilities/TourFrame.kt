@@ -9,13 +9,13 @@ import javax.swing.JFrame
 import javax.swing.JPanel
 
 class TourFrame {
-    val grid = AtomicReference<Grid1>(null)
+    val grid = AtomicReference<Grid>(null)
 
     fun doImmediateRepaint() {
         panel?.paintImmediately(0, 0, frame.width, frame.height)
     }
 
-    fun applyGrid(g : Grid1) {
+    fun applyGrid(g : Grid) {
         grid.set(g)
         doImmediateRepaint()
     }
