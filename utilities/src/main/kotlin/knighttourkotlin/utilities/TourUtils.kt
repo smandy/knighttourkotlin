@@ -57,7 +57,7 @@ interface Grid {
         return isOnBoard(p) && !contains(p)
     }
 
-
+    fun pop() : Grid
 }
 
 data class Grid1 private constructor (
@@ -83,7 +83,7 @@ data class Grid1 private constructor (
         )
     }
 
-    fun pop(): Grid1 {
+    override fun pop(): Grid1 {
         require(movesMade.isNotEmpty()) { "Logic error pop from empty list" }
         return Grid1(
             movesMade.subList(0, movesMade.lastIndex),

@@ -1,47 +1,47 @@
 package knighttourkotlin.utilities
 
 class Tour {
-    var g = Grid1()
+    //var g = Grid1()
 
     var stack = mutableListOf<MutableList<PInt>>()
     var running = true
-    fun run(eager : Boolean, cb : (Grid1) -> Boolean = { true }) {
+    fun run(grid : Grid, eager : Boolean, cb : (Grid) -> Boolean = { true }) {
 
         var maxMoves = 0
 
 
-        stack += g.availableMoves()
+        stack += grid.availableMoves()
         while (running) {
             //println("$g vp = $p")
             //println("MovesToMake = $movesToMake")
             //println("Stack : $stack")
             //println("G : $g")
             if (stack.last().isEmpty()) {
-                if (g.movesMade.size==BOARDSIZE * BOARDSIZE) {
+                if (grid.movesMade.size==BOARDSIZE * BOARDSIZE) {
                     running = false
                 } else {
-                    g = g.pop()
+                    grid = grid.pop()
                     stack.removeLast()
                 }
             } else {
                 val moveToMake = stack.last().removeLast()
-                g += moveToMake
+                grid += moveToMake
                 //require( g.runningCoords().all { it in g.visited } ) { "Logic error inconsistent"}
-                stack += g.availableMoves()
+                stack += grid.availableMoves()
             }
 
             if (eager) {
-                running = cb(g)
+                running = cb(grid)
             }
 
-            if (g.movesMade.size==0 || g.movesMade.size==63) {
+            if (grid.movesMade.size==0 || grid.movesMade.size==63) {
                 //print("Boom $g")
                 //running = false
-                running = cb(g)
+                running = cb(grid)
             }
 
-            if ( g.movesMade.size > maxMoves) {
-                maxMoves = g.movesMade.size
+            if ( grid.movesMade.size > maxMoves) {
+                maxMoves = grid.movesMade.size
                 //println("New max $maxMoves")
             }
         }
