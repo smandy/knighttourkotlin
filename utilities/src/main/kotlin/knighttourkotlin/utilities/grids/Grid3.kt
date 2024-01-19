@@ -7,13 +7,13 @@ import knighttourkotlin.utilities.plus
 /* Try to optimize - calculate currentPoint and visited */
 data class Grid3 private constructor (
     override var movesMade: List<PInt>,
-    override val visited : Collection<PInt>,
+    override val visited : HashSet<PInt>,
     override val currentPoint : PInt
 ) : Grid {
     companion object {
         operator fun invoke() = Grid3(
             emptyList(),
-            setOf(PInt()),
+            hashSetOf(PInt()),
             PInt()
         )
     }
@@ -23,7 +23,7 @@ data class Grid3 private constructor (
         require( !visited.contains(newP)) { "Logic error $newP already on board" }
         return Grid3(
             movesMade + move,
-            visited + newP,
+            visited.toHashSet().apply{ add(newP) },
             newP
         )
     }
@@ -36,7 +36,7 @@ data class Grid3 private constructor (
         require( currentPoint in visited) { "Log error $currentPoint not in $visited"}
         return Grid3(
             movesMade.subList(0, movesMade.lastIndex),
-            visited - currentPoint,
+            visited.toHashSet().apply { remove(currentPoint) },
             oldPoint
         )
     }

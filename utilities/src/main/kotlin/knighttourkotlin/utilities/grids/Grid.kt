@@ -10,6 +10,9 @@ interface Grid {
     val movesMade : List<PInt>
     val currentPoint : PInt
     val visited : Collection<PInt>
+    fun coords : Collection<PInt> {
+        return movesMade.runningFold( PInt() ) { a,b -> a + b }
+    }
 
     fun isOnBoard(p: PInt) =
         p.first in 0 until BOARDSIZE &&
@@ -34,11 +37,7 @@ interface Grid {
         }
     }
 
-    //abstract fun availablMoves(b: Boolean): Any
-
     operator fun plus(it: Pair<Int, Int>) : Grid
-
-    //operator fun minus(it: Pair<Int, Int>)
 
     fun canMove(p: PInt): Boolean {
         return isOnBoard(p) && !contains(p)
