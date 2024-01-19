@@ -2,17 +2,11 @@ package knighttourkotlin.utilities
 
 class Tour {
     var g = Grid()
-    //var p = PInt(0, 0)
 
     var stack = mutableListOf<MutableList<PInt>>()
     var running = true
     fun run(eager : Boolean, cb : (Grid) -> Boolean = { true }) {
 
-/*
-        fun availableMoves() = moves.filterTo(mutableListOf()) {
-            g.canMove(g.currentPoint + it)
-        }
-*/
         var maxMoves = 0
 
 
@@ -52,6 +46,4 @@ class Tour {
             }
         }
     }
-
-
 }

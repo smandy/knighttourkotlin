@@ -9,9 +9,7 @@ import javax.swing.JFrame
 import javax.swing.JPanel
 
 class TourFrame {
-
     val grid = AtomicReference<Grid>(null)
-    //frame.setSize(320, 320)
 
     fun doImmediateRepaint() {
         panel?.paintImmediately(0, 0, frame.width, frame.height)

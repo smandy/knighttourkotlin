@@ -1,6 +1,5 @@
 package knighttourkotlin.utilities
 
-import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.absoluteValue
 
 val BOARDSIZE = 8
@@ -21,17 +20,11 @@ val moves = run {
 
 data class Grid private constructor(
     var movesMade: List<PInt>
-    //val visited: Set<PInt>,
-    //val currentPoint: PInt
 ) {
 
     companion object {
-        val pzero = PInt(0,0)
-
         operator fun invoke() = Grid(
             emptyList(),
-            //setOf(pzero),
-            //pzero
         )
     }
 
@@ -40,7 +33,6 @@ data class Grid private constructor(
 
     val visited : List<PInt>
         get() = movesMade.runningFold(PInt(0, 0)) { a, b -> a + b }
-
 
     fun isOnBoard(p: PInt) =
         p.first in 0 until BOARDSIZE &&
@@ -76,30 +68,11 @@ data class Grid private constructor(
     }
 
     fun pop(): Grid {
-        //assert( !contains(pInt)) { "Logic error $pInt already on board" }
-
-        //println("Popping")
         require(movesMade.isNotEmpty()) { "Logic error pop from empty list" }
-
-/*        val toPop = movesMade.last().also {
-            require(isOnBoard(currentPoint - it)) {
-                """
-                |Logic error invalid pop to ${currentPoint - it}
-                |MovesMade $movesMade
-                |runningCoorde=${visited}""".trimIndent() }
-        }*/
-        //val newP = p - t
-        //val newPoint = currentPoint - toPop
-        //require(newPoint in visited) { "Logic error - popping nonvisited point" }
         return Grid(
             movesMade.subList(0, movesMade.lastIndex),
-            //visited - newPoint,
-            //newPoint
-        )/*.also {
-            print(it)
-        } */
+        )
     }
-
 }
 
 operator fun PInt.plus(rhs: PInt) =
@@ -108,31 +81,4 @@ operator fun PInt.plus(rhs: PInt) =
 operator fun PInt.minus(rhs: PInt) =
     Pair(this.first - rhs.first, this.second - rhs.second)
 
-fun main() {
-    println(moves)
-    println(PInt(1, 2) + PInt(3, 4))
-
-    var g = Grid()
-    var p = PInt(0, 0)
-
-    var running = true
-    var stack = mutableListOf<MutableList<PInt>>()
-
-    while (running) {
-        println("$g p = $p")
-        val movesToMake = moves.filterTo(mutableListOf()) {
-            g.canMove(p + it)
-        }
-        println("MovesToMake = $movesToMake")
-        if (movesToMake.isEmpty()) {
-            running = false
-        } else {
-            val moveToMake = movesToMake.removeLast()
-            g += moveToMake
-            stack += movesToMake
-            p += moveToMake
-        }
-    }
-
-}
 
