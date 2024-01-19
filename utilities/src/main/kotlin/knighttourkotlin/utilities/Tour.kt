@@ -37,7 +37,7 @@ class Tour {
             if (g.movesMade.size==0 || g.movesMade.size==63) {
                 //print("Boom $g")
                 //running = false
-                cb(g)
+                running = cb(g)
             }
 
             if ( g.movesMade.size > maxMoves) {
